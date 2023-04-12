@@ -15,10 +15,6 @@ class getnews(Plugin):
     def __init__(self):
         super().__init__()
         self.handlers[Event.ON_HANDLE_CONTEXT] = self.on_handle_context
-        self.url = "https://v2.alapi.cn/api/zaobao"
-        self.headers = {'Content-Type': "application/x-www-form-urlencoded"}
-        self.getnews_api_token = "UDuxUGXTKAlCJ3qt"
-        self.payload = "token="+self.getnews_api_token+"&format=json"
         logger.info("[getnews] inited")
 
     def on_handle_context(self, e_context: EventContext):
@@ -28,9 +24,16 @@ class getnews(Plugin):
         
         content = e_context['context'].content
         logger.debug("[getnews] on_handle_context. content: %s" % content)
-        if content == "news":
+        if content == "getnews":
             reply = Reply()
             reply.type = ReplyType.TEXT
+
+            #接口信息
+            url = "https://v2.alapi.cn/api/zaobao"
+            headers = {'Content-Type': "application/x-www-form-urlencoded"}
+            getnews_api_token = "UDuxUGXTKAlCJ3qt"
+            payload = "token="+getnews_api_token+"&format=json"
+
             #获取新闻
             req = requests.request("POST", url, data=payload, headers=headers)
             news_json = json.loads(req.text) 
@@ -39,9 +42,9 @@ class getnews(Plugin):
 
             msg:ChatMessage = e_context['context']['msg']
             if e_context['context']['isgroup']:
-                reply.content = f"早上好, " + news_date +"\n" + response
+                reply.content = f"今天是 " + news_date +"\n" + response
             else:
-                reply.content = f"早上好, " + news_date +"\n" + response
+                reply.content = f"今天是 " + news_date +"\n" + response
             e_context['reply'] = reply
             e_context.action = EventAction.BREAK_PASS # 事件结束，并跳过处理context的默认逻辑
 
