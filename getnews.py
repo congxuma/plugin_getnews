@@ -42,9 +42,9 @@ class getnews(Plugin):
 
             msg:ChatMessage = e_context['context']['msg']
             if e_context['context']['isgroup']:
-                reply.content = f"今天是 " + news_date +"\n" + response
+                reply.content = f"今天是 " + news_date +"\n" + news_reasult
             else:
-                reply.content = f"今天是 " + news_date +"\n" + response
+                reply.content = f"今天是 " + news_date +"\n" + news_reasult
             e_context['reply'] = reply
             e_context.action = EventAction.BREAK_PASS # 事件结束，并跳过处理context的默认逻辑
 
