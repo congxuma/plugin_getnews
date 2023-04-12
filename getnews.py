@@ -24,7 +24,7 @@ class getnews(Plugin):
         
         content = e_context['context'].content
         logger.debug("[getnews] on_handle_context. content: %s" % content)
-        if content == "getnews":
+        if content.find('getnews') != -1:
             reply = Reply()
             reply.type = ReplyType.TEXT
 
