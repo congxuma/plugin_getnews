@@ -59,29 +59,29 @@ class getnews(Plugin):
             # 定义日期格式的列表，按照优先级排序
             date_formats = ["%Y-%m-%d", "%Y.%m.%d", "%Y年%m月%d日", "%Y年的%m月%d日", "%y年%m月%d"]
 
-            # 使用正则表达式查找日期信息
-            match = re.search(date_regex, content)
-            if match:
-                year, month, day = match.groups()
-                for date_format in date_formats:
-                    try:
-                        parsed_date = datetime.strptime("{}-{}-{}".format(year, month, day), date_format)
-                        formatted_date = parsed_date.strftime("%Y-%m-%d")
-                        break
-                    except ValueError:
-                        formatted_date = datetime.now().strftime("%Y-%m-%d")
-            else:
-                formatted_date = datetime.now().strftime("%Y-%m-%d")
+#             # 使用正则表达式查找日期信息
+#             match = re.search(date_regex, content)
+#             if match:
+#                 year, month, day = match.groups()
+#                 for date_format in date_formats:
+#                     try:
+#                         parsed_date = datetime.strptime("{}-{}-{}".format(year, month, day), date_format)
+#                         formatted_date = parsed_date.strftime("%Y-%m-%d")
+#                         break
+#                     except ValueError:
+#                         formatted_date = datetime.now().strftime("%Y-%m-%d")
+#             else:
+#                 formatted_date = datetime.now().strftime("%Y-%m-%d")
 
-            #接口信息
-            url = "https://v2.alapi.cn/api/one/photo"
+            #接口信息 https://alapi.cn/api/view/10
+            url = "https://v2.alapi.cn/api/bing"
             headers = {'Content-Type': "application/x-www-form-urlencoded"}
-            payload = "token="+getnews_api_token+"&date="+ formatted_date
+            payload = "token="+getnews_api_token+"&format=json"
 
             #获取新闻
             req = requests.request("POST", url, data=payload, headers=headers)
             img_json = json.loads(req.text) 
-            img_reasult = img_json["data"]["cover"]
+            img_reasult = img_json["data"]["url"]
             reply.content = img_reasult
 
             e_context['reply'] = reply
