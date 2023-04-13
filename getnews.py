@@ -80,11 +80,10 @@ class getnews(Plugin):
 
             #获取新闻
             req = requests.request("POST", url, data=payload, headers=headers)
-            news_json = json.loads(req.text) 
-            news_date = news_json["data"]["date"]
-            news_reasult = news_json["data"]["cover"]
+            img_json = json.loads(req.text) 
+            img_reasult = img_json["data"]["cover"]
 
-            e_context['reply'] = news_reasult
+            e_context['reply'] = img_reasult
             e_context.action = EventAction.BREAK_PASS # 事件结束，并跳过处理context的默认逻辑
 
         # if content == "Hi":
