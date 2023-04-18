@@ -28,12 +28,13 @@ class getnews(Plugin):
         content = e_context['context'].content
         logger.debug("[getnews] on_handle_context. content: %s" % content)
         
-        help_info = "【请注意尽量不要使用chatgpt询问涉及个人隐私和敏感问题哦！】 \
-        \n使用技巧 \
-        \n0、直接输入可进行对话，输入#help获取帮助 \
-        \n1、输入内容中含‘每日新闻’可获取当日新闻；含‘每日摄影’可获取每日的一张摄影作品 \
-        \n2、关键字画开头将触发画图，目前需要以特殊的格式输入【画 <模型>:prompt】 \
-        \n3、输入‘画修复’可触发修复人像功能，会提示上传一张照片"
+        help_info = "【请注意尽量不要询问涉及个人隐私和敏感问题哦！】 \
+\n \
+\n使用技巧 \
+\n  0、直接输入可进行对话，支持1000字上下文联系，输入#help获取帮助 \
+\n  1、输入内容中含‘每日新闻’可获取当日新闻；含‘每日摄影’可获取每日的一张摄影作品 \
+\n  2、关键字画开头将触发画图，目前需要以特殊的格式输入【画 <模型>:prompt】 \
+\n  3、输入‘画修复’可触发修复人像功能，会提示上传一张照片"
 
         if re.search(r"每日新闻|getnews|今日新闻|今天有什么新闻", content):
             reply = Reply()
