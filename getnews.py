@@ -55,6 +55,17 @@ class getnews(Plugin):
             e_context['reply'] = reply
             e_context.action = EventAction.BREAK_PASS # 事件结束，并跳过处理context的默认逻辑
         
+        # 替换开头的bot
+        if re.match(r"bot.*", content):
+            reply = Reply()
+            reply.type = ReplyType.TEXT
+            
+            result = re.sub(r'^\bbot', '', content)
+            content = result
+            
+            e_context["reply"] = reply
+            e_context.action = EventAction.CONTINUE  # 事件继续，交付给下个插件或默认逻辑
+            
         if re.match(r"我是.*", content):
             reply = Reply()
             reply.type = ReplyType.TEXT
@@ -68,7 +79,7 @@ class getnews(Plugin):
                 reply.content = f"Hello, {msg.from_user_nickname} \n" + help_info
             e_context["reply"] = reply
             e_context.action = EventAction.BREAK_PASS  # 事件结束，并跳过处理context的默认逻辑
-            
+      
         if re.search(r"每日图片|getimg|今日摄影|每日摄影", content):
             reply = Reply()
             reply.type = ReplyType.IMAGE_URL
