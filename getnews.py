@@ -62,6 +62,7 @@ class getnews(Plugin):
             
             result = re.sub(r'^\bbot', '', content)
             content = result
+            logger.info("[getnews] replace bot")
             
             e_context["reply"] = reply
             e_context.action = EventAction.CONTINUE  # 事件继续，交付给下个插件或默认逻辑
