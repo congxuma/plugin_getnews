@@ -54,18 +54,6 @@ class getnews(Plugin):
             
             e_context['reply'] = reply
             e_context.action = EventAction.BREAK_PASS # 事件结束，并跳过处理context的默认逻辑
-        
-        # 替换开头的bot
-        if re.match(r"bot.*", content):
-            reply = Reply()
-            reply.type = ReplyType.TEXT
-            
-            result = re.sub(r'^bot', '', content)
-            content = result
-            logger.info("[getnews] replace bot")
-            
-            e_context["reply"] = reply
-            e_context.action = EventAction.CONTINUE  # 事件继续，交付给下个插件或默认逻辑
             
         if re.match(r"我是.*", content):
             reply = Reply()
@@ -119,7 +107,14 @@ class getnews(Plugin):
 
             e_context['reply'] = reply
             e_context.action = EventAction.BREAK_PASS # 事件结束，并跳过处理context的默认逻辑
-
+        
+                # 替换开头的bot
+        if re.match(r"bot.*", content):
+            content = re.sub(r'^bot', '', content) #删除开头的bot
+            logger.info("[getnews] replace bot and new content:" + content)
+            
+            e_context.action = EventAction.CONTINUE  # 事件继续，交付给下个插件或默认逻辑
+            
         # if content == "Hi":
         #     reply = Reply()
         #     reply.type = ReplyType.TEXT
