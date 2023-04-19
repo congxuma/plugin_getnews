@@ -60,7 +60,7 @@ class getnews(Plugin):
             reply = Reply()
             reply.type = ReplyType.TEXT
             
-            result = re.sub(r'^\bbot', '', content)
+            result = re.sub(r'^bot', '', content)
             content = result
             logger.info("[getnews] replace bot")
             
